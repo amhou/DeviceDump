@@ -5,6 +5,7 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.TextView;
 import android.telephony.TelephonyManager;
+import android.provider.Settings;
 import android.content.Context;
 
 public class DeviceDump extends Activity {
@@ -27,5 +28,9 @@ public class DeviceDump extends Activity {
         String imsi = tManager.getSubscriberId();
         TextView imsi_tv = (TextView) this.findViewById(R.id.imsi_textview);
         imsi_tv.setText("IMSI: " + imsi);
+
+        String apn = Settings.ACTION_APN_SETTINGS;
+        TextView apn_tv = (TextView) this.findViewById(R.id.apn_textview);
+        apn_tv.setText("APN: " + apn);
     }
 }

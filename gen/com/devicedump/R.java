@@ -14,8 +14,9 @@ public final class R {
         public static final int icon=0x7f020000;
     }
     public static final class id {
-        public static final int ButtonRefresh=0x7f050005;
+        public static final int ButtonRefresh=0x7f050006;
         public static final int ScrollView01=0x7f050000;
+        public static final int apn_textview=0x7f050005;
         public static final int app_name_header=0x7f050001;
         public static final int imei_textview=0x7f050002;
         public static final int imsi_textview=0x7f050004;

@@ -34,6 +34,12 @@
                 android:layout_height="wrap_content"
                 android:text="IMSI: "
                 android:textSize="12pt"/>
+        <TextView
+                android:id="@+id/apn_textview"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="APN: "
+                android:textSize="12pt"/>
         <Button
                 android:id="@+id/ButtonRefresh"
                 android:layout_height="wrap_content"
