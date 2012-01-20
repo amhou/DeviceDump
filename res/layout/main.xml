@@ -35,6 +35,30 @@
                 android:text="IMSI: "
                 android:textSize="12pt"/>
         <TextView
+                android:id="@+id/manufacturer_textview"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Device: "
+                android:textSize="12pt"/>
+        <TextView
+                android:id="@+id/device_textview"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Device: "
+                android:textSize="12pt"/>
+        <TextView
+                android:id="@+id/sdk_textview"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Android Version: "
+                android:textSize="12pt"/>
+        <TextView
+                android:id="@+id/network_name_textview"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Network: "
+                android:textSize="12pt"/>
+        <TextView
                 android:id="@+id/apn_textview"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
