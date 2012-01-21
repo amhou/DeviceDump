@@ -20,50 +20,42 @@
                 android:id="@+id/imei_textview"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="IMEI: "
-                android:textSize="12pt"/>
+                android:text="IMEI: "/>
         <TextView
                 android:id="@+id/mdn_textview"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="MDN: "
-                android:textSize="12pt"/>
+                android:text="MDN: "/>
         <TextView
                 android:id="@+id/imsi_textview"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="IMSI: "
-                android:textSize="12pt"/>
+                android:text="IMSI: "/>
         <TextView
                 android:id="@+id/manufacturer_textview"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="Device: "
-                android:textSize="12pt"/>
+                android:text="Device: "/>
         <TextView
                 android:id="@+id/device_textview"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="Device: "
-                android:textSize="12pt"/>
+                android:text="Device: "/>
         <TextView
                 android:id="@+id/sdk_textview"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="Android Version: "
-                android:textSize="12pt"/>
+                android:text="Android Version: "/>
         <TextView
                 android:id="@+id/network_name_textview"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="Network: "
-                android:textSize="12pt"/>
+                android:text="Network: "/>
         <TextView
                 android:id="@+id/apn_textview"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="APN: "
-                android:textSize="12pt"/>
+                android:text="APN: "/>
         <Button
                 android:id="@+id/ButtonRefresh"
                 android:layout_height="wrap_content"

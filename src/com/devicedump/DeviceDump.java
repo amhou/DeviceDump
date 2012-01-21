@@ -1,6 +1,8 @@
 package com.devicedump;
 
 import android.app.Activity;
+import android.database.Cursor;
+import android.net.Uri;
 import android.os.Bundle;
 import android.os.Build;
 import android.view.View;
@@ -49,9 +51,18 @@ public class DeviceDump extends Activity {
         TextView sdk_tv = (TextView) this.findViewById(R.id.sdk_textview);
         sdk_tv.setText("Android Version: " + sdk_version);
 
-        String apn = Settings.ACTION_APN_SETTINGS;
+        String apn_name = null;
+        Cursor c = getContentResolver().query(Uri.parse("content://telephony/carriers/preferapn"), new String[]{"name","apn"},"current=1",null,null);
+        if (c != null) {
+            try {
+                if (c.moveToFirst()) {
+                    apn_name = c.getString(0) + " / " + c.getString(1);
+                }
+            } finally {
+                c.close();
+            }
+        }
         TextView apn_tv = (TextView) this.findViewById(R.id.apn_textview);
-        apn_tv.setText("APN: " + apn);
-
+        apn_tv.setText("APN: "  + apn_name);
     }
 }
