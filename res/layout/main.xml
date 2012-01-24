@@ -17,11 +17,6 @@
                 android:textStyle="bold"
                 android:textSize="12pt"/>
         <TextView
-                android:id="@+id/imei_textview"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="IMEI: "/>
-        <TextView
                 android:id="@+id/mdn_textview"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
@@ -35,12 +30,32 @@
                 android:id="@+id/manufacturer_textview"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="Device: "/>
+                android:text="Manufacturer: "/>
         <TextView
                 android:id="@+id/device_textview"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="Device: "/>
+        <TextView
+                android:id="@+id/build_id_textview"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Build ID: "/>
+        <TextView
+                android:id="@+id/imei_textview"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="IMEI/MEID: "/>
+        <TextView
+                android:id="@+id/imei_sv_textview"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="IMEI SV: "/>
+        <TextView
+                android:id="@+id/iccid_textview"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="ICCID: "/>
         <TextView
                 android:id="@+id/sdk_textview"
                 android:layout_width="wrap_content"
@@ -56,11 +71,31 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="APN: "/>
+        <TextView
+                android:id="@+id/radio_version_textview"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Baseband: "/>
+        <TextView
+                android:id="@+id/is_roaming_textview"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Roaming: "/>
+        <TextView
+                android:id="@+id/airplane_textview"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Airplane: "/>
+        <TextView
+                android:id="@+id/kernel_version_textview"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Kernel: "/>
         <Button
                 android:id="@+id/ButtonRefresh"
                 android:layout_height="wrap_content"
                 android:text="Refresh"
-                android:onClick="dumpState"
+                android:onClick="refresh"
                 android:layout_width="fill_parent"/>
     </LinearLayout>
 </ScrollView>
