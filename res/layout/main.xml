@@ -71,26 +71,46 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="APN: "/>
-        <TextView
-                android:id="@+id/radio_version_textview"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="Baseband: "/>
+        <!--<TextView-->
+                <!--android:id="@+id/radio_version_textview"-->
+                <!--android:layout_width="wrap_content"-->
+                <!--android:layout_height="wrap_content"-->
+                <!--android:text="Baseband: "/>-->
         <TextView
                 android:id="@+id/is_roaming_textview"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="Roaming: "/>
         <TextView
-                android:id="@+id/airplane_textview"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="Airplane: "/>
-        <TextView
                 android:id="@+id/kernel_version_textview"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="Kernel: "/>
+        <TextView
+                android:id="@+id/ssid_textview"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Wi-Fi Connection: "/>
+        <TextView
+                android:id="@+id/mac_add_textview"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Wi-Fi MAC Address: "/>
+        <TextView
+                android:id="@+id/ip_add_textview"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Wi-Fi IP Address: "/>
+        <TextView
+                android:id="@+id/signal_strength_textview"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Wi-Fi Signal Strength: "/>
+        <TextView
+                android:id="@+id/cell_strength_textview"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Cell Signal Strength: "/>
         <Button
                 android:id="@+id/ButtonRefresh"
                 android:layout_height="wrap_content"

@@ -1,22 +1,48 @@
 package com.devicedump;
 
 import android.app.Activity;
+import android.net.wifi.WifiInfo;
 import android.database.Cursor;
 import android.net.Uri;
+import android.net.wifi.WifiManager;
 import android.os.Bundle;
 import android.os.Build;
 import android.view.View;
 import android.widget.TextView;
 import android.telephony.TelephonyManager;
 import android.content.Context;
-import android.provider.Settings;
+import android.telephony.PhoneStateListener;
+import android.telephony.SignalStrength;
 
 public class DeviceDump extends Activity {
+    TelephonyManager tManager;
+    myPhoneStateListener mpListener;
+    WifiManager wManager;
+    
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.main);
+        
+        mpListener = new myPhoneStateListener();
+        tManager = (TelephonyManager) getSystemService(Context.TELEPHONY_SERVICE);
+        wManager = (WifiManager) getSystemService(Context.WIFI_SERVICE);
+        
+        tManager.listen(mpListener, PhoneStateListener.LISTEN_SIGNAL_STRENGTHS);
+        
         dumpState();
+    }
+
+    @Override
+    protected void onPause() {
+        super.onPause();
+        tManager.listen(mpListener, PhoneStateListener.LISTEN_NONE); //turn off listener
+    }
+    
+    @Override
+    protected void onResume() {
+        super.onResume();
+        tManager.listen(mpListener, PhoneStateListener.LISTEN_SIGNAL_STRENGTHS); //start listener again
     }
     
     public void refresh(View button) {
@@ -24,7 +50,7 @@ public class DeviceDump extends Activity {
     }
 
     public void dumpState() {
-        TelephonyManager tManager = (TelephonyManager) getSystemService(Context.TELEPHONY_SERVICE);
+        WifiInfo wInfo = wManager.getConnectionInfo();
 
         String mdn = tManager.getLine1Number();
         TextView mdn_tv = (TextView) this.findViewById(R.id.mdn_textview);
@@ -84,7 +110,7 @@ public class DeviceDump extends Activity {
         TextView apn_tv = (TextView) this.findViewById(R.id.apn_textview);
         apn_tv.setText("APN: "  + apn_name);
 
-//        String radio_version = Build.getRadioVersion();
+//        String radio_version = Build.RADIO;         // not available in sdk v.7
 //        TextView radio_version_tv = (TextView) this.findViewById(R.id.radio_version_textview);
 //        radio_version_tv.setText("Baseband: " + radio_version);
 
@@ -95,9 +121,46 @@ public class DeviceDump extends Activity {
         String kernel_version = System.getProperty("os.version");
         TextView kernel_version_tv = (TextView) this.findViewById(R.id.kernel_version_textview);
         kernel_version_tv.setText("Kernel: " + kernel_version);
+
+        String ssid = wInfo.getSSID();
+        TextView ssid_tv = (TextView) this.findViewById(R.id.ssid_textview);
+        ssid_tv.setText("Wi-Fi Connection: " + ssid);
         
-        String airplane = Settings.System.AIRPLANE_MODE_ON;
-        TextView airplane_tv = (TextView) this.findViewById(R.id.airplane_textview);
-        airplane_tv.setText("Airplane Mode: " + airplane);
+        String mac_add = wInfo.getMacAddress();
+        TextView mac_add_tv = (TextView) this.findViewById(R.id.mac_add_textview);
+        mac_add_tv.setText("Wi-Fi MAC Address: " + mac_add);
+
+        int ip_add_int = wInfo.getIpAddress();
+        String ip_add = intToIp(ip_add_int);
+        TextView ip_add_tv = (TextView) this.findViewById(R.id.ip_add_textview);
+        ip_add_tv.setText("Wi-Fi IP Address: " + ip_add);
+        
+        int rssi = wInfo.getRssi();
+        int signal_strength = wManager.calculateSignalLevel(rssi, 40);
+        TextView signal_strength_tv = (TextView) this.findViewById(R.id.signal_strength_textview);
+        signal_strength_tv.setText("Wi-Fi Signal Strength: " + signal_strength + "/40");
+    }
+
+    private class myPhoneStateListener extends PhoneStateListener {
+        @Override
+        public void onSignalStrengthsChanged(SignalStrength signalStrength) {
+            super.onSignalStrengthsChanged(signalStrength);
+            TextView cell_strength_tv = (TextView) findViewById(R.id.cell_strength_textview);
+            int cell_strength = signalStrength.getGsmSignalStrength();
+            cell_strength_tv.setText("Cell Signal Strength: " + dbmAsu(cell_strength));
+        }
+        
+        private String dbmAsu(int asu) {
+            int dbm = -113 + (2*asu);
+            String dbmAsu = dbm + " dBm / " + asu + " asu";
+            return dbmAsu;
+        }
+    }
+    
+    private String intToIp(int i) {
+        return (i & 0xFF) + "." +
+               ((i >> 8 ) & 0xFF) + "." +
+               ((i >> 16 ) & 0xFF) + "." +
+               ((i >> 24 ) & 0xFF );
     }
 }
