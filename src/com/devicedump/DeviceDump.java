@@ -1,23 +1,31 @@
 package com.devicedump;
 
 import android.app.Activity;
-import android.net.wifi.WifiInfo;
+import android.content.Context;
 import android.database.Cursor;
+import android.net.ConnectivityManager;
+import android.net.NetworkInfo;
+import android.net.wifi.WifiInfo;
 import android.net.Uri;
 import android.net.wifi.WifiManager;
 import android.os.Bundle;
 import android.os.Build;
-import android.view.View;
-import android.widget.TextView;
+import android.os.Handler;
+import android.os.Message;
+import android.os.SystemClock;
+import android.telephony.ServiceState;
 import android.telephony.TelephonyManager;
-import android.content.Context;
 import android.telephony.PhoneStateListener;
 import android.telephony.SignalStrength;
+import android.text.format.DateUtils;
+import android.view.View;
+import android.widget.TextView;
 
 public class DeviceDump extends Activity {
-    TelephonyManager tManager;
-    myPhoneStateListener mpListener;
-    WifiManager wManager;
+    private TelephonyManager tManager;
+    private myPhoneStateListener mpListener;
+    private WifiManager wManager;
+    private ConnectivityManager cManager;
     
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -27,8 +35,10 @@ public class DeviceDump extends Activity {
         mpListener = new myPhoneStateListener();
         tManager = (TelephonyManager) getSystemService(Context.TELEPHONY_SERVICE);
         wManager = (WifiManager) getSystemService(Context.WIFI_SERVICE);
+        cManager = (ConnectivityManager) getSystemService(Context.CONNECTIVITY_SERVICE);
         
         tManager.listen(mpListener, PhoneStateListener.LISTEN_SIGNAL_STRENGTHS);
+        tManager.listen(mpListener, PhoneStateListener.LISTEN_SERVICE_STATE);
         
         dumpState();
     }
@@ -37,12 +47,15 @@ public class DeviceDump extends Activity {
     protected void onPause() {
         super.onPause();
         tManager.listen(mpListener, PhoneStateListener.LISTEN_NONE); //turn off listener
+        mHandler.removeMessages(EVENT_TICK);
     }
     
     @Override
     protected void onResume() {
         super.onResume();
         tManager.listen(mpListener, PhoneStateListener.LISTEN_SIGNAL_STRENGTHS); //start listener again
+        tManager.listen(mpListener, PhoneStateListener.LISTEN_SERVICE_STATE);
+        mHandler.sendEmptyMessageDelayed(EVENT_TICK, 1000);
     }
     
     public void refresh(View button) {
@@ -139,6 +152,15 @@ public class DeviceDump extends Activity {
         int signal_strength = wManager.calculateSignalLevel(rssi, 40);
         TextView signal_strength_tv = (TextView) this.findViewById(R.id.signal_strength_textview);
         signal_strength_tv.setText("Wi-Fi Signal Strength: " + signal_strength + "/40");
+
+        NetworkInfo network_info = cManager.getActiveNetworkInfo();
+        TextView mobile_network_tv = (TextView) this.findViewById(R.id.mobile_type_textview);
+        if (network_info != null) {
+            String mobile_network_name = network_info.getSubtypeName();            
+            mobile_network_tv.setText("Mobile Network Type: " + mobile_network_name);
+        } else {
+            mobile_network_tv.setText("Mobile Network Type: not connected");
+        }
     }
 
     private class myPhoneStateListener extends PhoneStateListener {
@@ -146,15 +168,70 @@ public class DeviceDump extends Activity {
         public void onSignalStrengthsChanged(SignalStrength signalStrength) {
             super.onSignalStrengthsChanged(signalStrength);
             TextView cell_strength_tv = (TextView) findViewById(R.id.cell_strength_textview);
-            int cell_strength = signalStrength.getGsmSignalStrength();
-            cell_strength_tv.setText("Cell Signal Strength: " + dbmAsu(cell_strength));
+            if (signalStrength.isGsm()) {
+                int cell_strength = signalStrength.getGsmSignalStrength();
+                cell_strength_tv.setText("Cell Signal Strength: " + asu2Dbm(cell_strength) + " (GSM)");
+            } else {
+                int cell_strength = signalStrength.getCdmaDbm();
+                cell_strength_tv.setText("Cell Singal Strength: " + dbm2Asu(cell_strength) + " (CDMA)");
+            }
+        }
+
+        @Override
+        public void onServiceStateChanged(ServiceState serviceState) {
+            super.onServiceStateChanged(serviceState);
+            TextView service_state_tv = (TextView) findViewById(R.id.service_state_textview);
+            int serv_state = serviceState.getState();
+            String serv_string = new String();
+            if (serv_state == 0) {
+                serv_string = "In Service";
+            } else if (serv_state == 1) {
+                serv_string = "Out of Service";
+            } else if (serv_state == 2) {
+                serv_string = "Emergency Only";
+            } else if (serv_state == 3) {
+                serv_string = "Power Off";
+            } else {
+                serv_string = "ERROR";
+            }
+            service_state_tv.setText("Service State: " + serv_string);
         }
         
-        private String dbmAsu(int asu) {
+        private String asu2Dbm(int asu) {
+            if (asu == 99) {
+                return "none detected";
+            }
             int dbm = -113 + (2*asu);
+            String asuDbm = dbm + " dBm / " + asu + " asu";
+            return asuDbm;
+        }
+        
+        private String dbm2Asu(int dbm) {
+            int asu = (dbm + 113)/2;
             String dbmAsu = dbm + " dBm / " + asu + " asu";
             return dbmAsu;
         }
+    }
+
+    private static final int EVENT_TICK = 1;
+    
+    private Handler mHandler = new Handler() {
+        @Override
+        public void handleMessage(Message msg) {
+            switch (msg.what) {
+                case EVENT_TICK:
+                    updateBatteryStats();
+                    sendEmptyMessageDelayed(EVENT_TICK, 1000);
+
+                    break;
+            }
+        }
+    };
+    
+    private void updateBatteryStats() {
+        long uptime = SystemClock.elapsedRealtime();
+        TextView uptime_tv = (TextView) findViewById(R.id.uptime_textview);
+        uptime_tv.setText("Uptime: " + DateUtils.formatElapsedTime(uptime / 1000));
     }
     
     private String intToIp(int i) {

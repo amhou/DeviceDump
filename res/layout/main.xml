@@ -111,6 +111,21 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="Cell Signal Strength: "/>
+        <TextView
+                android:id="@+id/mobile_type_textview"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Mobile Network Type: "/>
+        <TextView
+                android:id="@+id/service_state_textview"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Service State: "/>
+        <TextView
+                android:id="@+id/uptime_textview"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Uptime: "/>
         <Button
                 android:id="@+id/ButtonRefresh"
                 android:layout_height="wrap_content"
