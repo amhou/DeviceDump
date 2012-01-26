@@ -14,7 +14,7 @@ public final class R {
         public static final int icon=0x7f020000;
     }
     public static final class id {
-        public static final int ButtonRefresh=0x7f050017;
+        public static final int LinearButtons=0x7f050018;
         public static final int ScrollView01=0x7f050000;
         public static final int apn_textview=0x7f05000c;
         public static final int app_name_header=0x7f050001;
@@ -31,13 +31,14 @@ public final class R {
         public static final int mac_add_textview=0x7f050010;
         public static final int manufacturer_textview=0x7f050004;
         public static final int mdn_textview=0x7f050002;
+        public static final int mobile_state_textview=0x7f050015;
         public static final int mobile_type_textview=0x7f050014;
         public static final int network_name_textview=0x7f05000b;
         public static final int sdk_textview=0x7f05000a;
-        public static final int service_state_textview=0x7f050015;
+        public static final int service_state_textview=0x7f050016;
         public static final int signal_strength_textview=0x7f050012;
         public static final int ssid_textview=0x7f05000f;
-        public static final int uptime_textview=0x7f050016;
+        public static final int uptime_textview=0x7f050017;
     }
     public static final class layout {
         public static final int main=0x7f030000;

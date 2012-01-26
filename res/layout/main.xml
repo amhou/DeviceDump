@@ -117,6 +117,11 @@
                 android:layout_height="wrap_content"
                 android:text="Mobile Network Type: "/>
         <TextView
+                android:id="@+id/mobile_state_textview"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Mobile Network State: "/>
+        <TextView
                 android:id="@+id/service_state_textview"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
@@ -126,11 +131,23 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="Uptime: "/>
-        <Button
-                android:id="@+id/ButtonRefresh"
-                android:layout_height="wrap_content"
-                android:text="Refresh"
-                android:onClick="refresh"
-                android:layout_width="fill_parent"/>
+
+        <LinearLayout android:id="@+id/LinearButtons"
+                      android:layout_height="wrap_content"
+                      android:layout_width="fill_parent"
+                      android:layout_alignParentBottom="true">
+            <Button
+                    android:layout_height="wrap_content"
+                    android:text="Log"
+                    android:onClick="dumpLog"
+                    android:layout_width="fill_parent"
+                    android:layout_weight="1"/>
+            <Button
+                    android:layout_height="wrap_content"
+                    android:text="Refresh"
+                    android:onClick="refresh"
+                    android:layout_width="fill_parent"
+                    android:layout_weight="1"/>
+        </LinearLayout>
     </LinearLayout>
 </ScrollView>
