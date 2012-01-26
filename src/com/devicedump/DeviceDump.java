@@ -210,7 +210,7 @@ public class DeviceDump extends Activity {
         mobile_network_tv = (TextView) this.findViewById(R.id.mobile_type_textview);
         mobile_state_tv = (TextView) this.findViewById(R.id.mobile_state_textview);
         if (network_info != null) {
-            String mobile_network_name = network_info.getSubtypeName();            
+            String mobile_network_name = network_info.getSubtypeName();
             mobile_network_tv.setText("Mobile Network Type: " + mobile_network_name);
             deviceInfo.put("Mobile Network Type", mobile_network_name);
 
@@ -231,6 +231,8 @@ public class DeviceDump extends Activity {
         for (String key : deviceInfo.keySet()) {
             logPrinter.println(key + ": " + deviceInfo.get(key));
         }
+        long uptime = SystemClock.elapsedRealtime();
+        logPrinter.println("Uptime: " + DateUtils.formatElapsedTime(uptime / 1000));
     }
 
     private class myPhoneStateListener extends PhoneStateListener {
