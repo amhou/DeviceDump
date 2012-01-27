@@ -226,12 +226,14 @@ public class DeviceDump extends Activity {
     }
 
     public void dumpLog(View button) {
+        dumpState();
         LogPrinter logPrinter = new LogPrinter(4, "DeviceDump");
         logPrinter.println("Device Dump");
         for (String key : deviceInfo.keySet()) {
             logPrinter.println(key + ": " + deviceInfo.get(key));
         }
-        long uptime = SystemClock.elapsedRealtime();
+        logPrinter.println(cell_strength_tv.getText().toString());
+        long uptime = SystemClock.elapsedRealtime();        
         logPrinter.println("Uptime: " + DateUtils.formatElapsedTime(uptime / 1000));
     }
 
@@ -242,10 +244,14 @@ public class DeviceDump extends Activity {
             cell_strength_tv = (TextView) findViewById(R.id.cell_strength_textview);
             if (signalStrength.isGsm()) {
                 int cell_strength = signalStrength.getGsmSignalStrength();
-                cell_strength_tv.setText("Cell Signal Strength: " + asu2Dbm(cell_strength) + " (GSM)");
+                if (cell_strength != 99) {
+                    cell_strength_tv.setText("Cell Signal Strength: " + asu2Dbm(cell_strength) + " dBm");
+                } else {
+                    cell_strength_tv.setText("Cell Signal Strength: Unknown");
+                }
             } else {
-                int cell_strength = signalStrength.getCdmaDbm();
-                cell_strength_tv.setText("Cell Singal Strength: " + dbm2Asu(cell_strength) + " (CDMA)");
+                int cell_strength = signalStrength.getEvdoDbm();
+                cell_strength_tv.setText("Cell Singal Strength: " + cell_strength + " dBm");
             }
         }
 
@@ -270,18 +276,8 @@ public class DeviceDump extends Activity {
         }
         
         private String asu2Dbm(int asu) {
-            if (asu == 99) {
-                return "none detected";
-            }
-            int dbm = -113 + (2*asu);
-            String asuDbm = dbm + " dBm / " + asu + " asu";
-            return asuDbm;
-        }
-        
-        private String dbm2Asu(int dbm) {
-            int asu = (dbm + 113)/2;
-            String dbmAsu = dbm + " dBm / " + asu + " asu";
-            return dbmAsu;
+            Integer dbm = -113 + (2*asu);
+            return dbm.toString();
         }
     }
 
