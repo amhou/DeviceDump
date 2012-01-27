@@ -24,6 +24,8 @@ import android.widget.TextView;
 
 import java.util.HashMap;
 
+import com.google.gson.stream.JsonWriter;
+
 public class DeviceDump extends Activity {
     private TelephonyManager tManager;
     private myPhoneStateListener mpListener;
@@ -52,7 +54,7 @@ public class DeviceDump extends Activity {
     private TextView mobile_state_tv;
     private TextView cell_strength_tv;
     private TextView service_state_tv;
-    private TextView uptime_tv;
+    private TextView uptime_tv;    
 
     private HashMap<String,String> deviceInfo = new HashMap<String,String>();
     
