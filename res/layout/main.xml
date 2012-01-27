@@ -1,13 +1,153 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:orientation="vertical"
-    android:layout_width="fill_parent"
-    android:layout_height="fill_parent"
-    >
-<TextView  
-    android:layout_width="fill_parent" 
-    android:layout_height="wrap_content" 
-    android:text="Hello World, MyActivity"
-    />
-</LinearLayout>
+<ScrollView
+        xmlns:android="http://schemas.android.com/apk/res/android"
+        android:id="@+id/ScrollView01"
+        android:layout_width="fill_parent"
+        android:layout_height="fill_parent"
+        android:scrollbars="vertical">
+    <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+                  android:orientation="vertical"
+                  android:layout_width="fill_parent"
+                  android:layout_height="fill_parent">
+        <TextView
+                android:id="@+id/app_name_header"
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content"
+                android:text="@string/app_name"
+                android:textStyle="bold"
+                android:textSize="12pt"/>
+        <TextView
+                android:id="@+id/mdn_textview"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="MDN: "/>
+        <TextView
+                android:id="@+id/imsi_textview"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="IMSI: "/>
+        <TextView
+                android:id="@+id/manufacturer_textview"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Manufacturer: "/>
+        <TextView
+                android:id="@+id/device_textview"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Device: "/>
+        <TextView
+                android:id="@+id/build_id_textview"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Build ID: "/>
+        <TextView
+                android:id="@+id/imei_textview"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="IMEI/MEID: "/>
+        <TextView
+                android:id="@+id/imei_sv_textview"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="IMEI SV: "/>
+        <TextView
+                android:id="@+id/iccid_textview"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="ICCID: "/>
+        <TextView
+                android:id="@+id/sdk_textview"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Android Version: "/>
+        <TextView
+                android:id="@+id/network_name_textview"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Network: "/>
+        <TextView
+                android:id="@+id/apn_textview"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="APN: "/>
+        <!--<TextView-->
+                <!--android:id="@+id/radio_version_textview"-->
+                <!--android:layout_width="wrap_content"-->
+                <!--android:layout_height="wrap_content"-->
+                <!--android:text="Baseband: "/>-->
+        <TextView
+                android:id="@+id/is_roaming_textview"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Roaming: "/>
+        <TextView
+                android:id="@+id/kernel_version_textview"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Kernel: "/>
+        <TextView
+                android:id="@+id/ssid_textview"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Wi-Fi Connection: "/>
+        <TextView
+                android:id="@+id/mac_add_textview"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Wi-Fi MAC Address: "/>
+        <TextView
+                android:id="@+id/ip_add_textview"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Wi-Fi IP Address: "/>
+        <TextView
+                android:id="@+id/signal_strength_textview"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Wi-Fi Signal Strength: "/>
+        <TextView
+                android:id="@+id/cell_strength_textview"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Cell Signal Strength: "/>
+        <TextView
+                android:id="@+id/mobile_type_textview"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Mobile Network Type: "/>
+        <TextView
+                android:id="@+id/mobile_state_textview"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Mobile Network State: "/>
+        <TextView
+                android:id="@+id/service_state_textview"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Service State: "/>
+        <TextView
+                android:id="@+id/uptime_textview"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Uptime: "/>
 
+        <LinearLayout android:id="@+id/LinearButtons"
+                      android:layout_height="wrap_content"
+                      android:layout_width="fill_parent"
+                      android:layout_alignParentBottom="true">
+            <Button
+                    android:layout_height="wrap_content"
+                    android:text="Log"
+                    android:onClick="dumpLog"
+                    android:layout_width="fill_parent"
+                    android:layout_weight="1"/>
+            <Button
+                    android:layout_height="wrap_content"
+                    android:text="Refresh"
+                    android:onClick="refresh"
+                    android:layout_width="fill_parent"
+                    android:layout_weight="1"/>
+        </LinearLayout>
+    </LinearLayout>
+</ScrollView>
