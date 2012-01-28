@@ -1,0 +1,5 @@
+DeviceDump displays all the information about your Android device in one easy to view screen. The device info can then be logged in the Android Debugger logcat, or can be saved to file. 
+
+Supports Android version 2.1+
+
+(c) 2012,  Andrew Michael Hou, hou.andrew@gmail.com
