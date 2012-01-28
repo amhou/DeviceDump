@@ -144,6 +144,12 @@
                     android:layout_weight="1"/>
             <Button
                     android:layout_height="wrap_content"
+                    android:text="Save to File"
+                    android:onClick="saveLog"
+                    android:layout_width="fill_parent"
+                    android:layout_weight="1"/>
+            <Button
+                    android:layout_height="wrap_content"
                     android:text="Refresh"
                     android:onClick="refresh"
                     android:layout_width="fill_parent"
