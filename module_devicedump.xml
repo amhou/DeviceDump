@@ -1,0 +1,91 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project name="module_devicedump" default="compile.module.devicedump">
+  <dirname property="module.devicedump.basedir" file="${ant.file.module_devicedump}"/>
+  
+  <property name="module.jdk.home.devicedump" value="${project.jdk.home}"/>
+  <property name="module.jdk.bin.devicedump" value="${project.jdk.bin}"/>
+  <property name="module.jdk.classpath.devicedump" value="${project.jdk.classpath}"/>
+  
+  <property name="compiler.args.devicedump" value="${compiler.args}"/>
+  
+  <property name="devicedump.output.dir" value="${module.devicedump.basedir}/out/production/DeviceDump"/>
+  <property name="devicedump.testoutput.dir" value="${module.devicedump.basedir}/out/test/DeviceDump"/>
+  
+  <path id="devicedump.module.bootclasspath">
+    <!-- Paths to be included in compilation bootclasspath -->
+  </path>
+  
+  <path id="devicedump.module.production.classpath">
+    <path refid="${module.jdk.classpath.devicedump}"/>
+    <pathelement location="${basedir}/../google-gson-stream-2.1.jar"/>
+    <path refid="library.gson-2.1.classpath"/>
+  </path>
+  
+  <path id="devicedump.runtime.production.module.classpath">
+    <pathelement location="${devicedump.output.dir}"/>
+    <pathelement location="${basedir}/../google-gson-stream-2.1.jar"/>
+    <path refid="library.gson-2.1.classpath"/>
+  </path>
+  
+  <path id="devicedump.module.classpath">
+    <path refid="${module.jdk.classpath.devicedump}"/>
+    <pathelement location="${devicedump.output.dir}"/>
+    <pathelement location="${basedir}/../google-gson-stream-2.1.jar"/>
+    <path refid="library.gson-2.1.classpath"/>
+  </path>
+  
+  <path id="devicedump.runtime.module.classpath">
+    <pathelement location="${devicedump.testoutput.dir}"/>
+    <pathelement location="${devicedump.output.dir}"/>
+    <pathelement location="${basedir}/../google-gson-stream-2.1.jar"/>
+    <path refid="library.gson-2.1.classpath"/>
+  </path>
+  
+  
+  <patternset id="excluded.from.module.devicedump">
+    <patternset refid="ignored.files"/>
+  </patternset>
+  
+  <patternset id="excluded.from.compilation.devicedump">
+    <patternset refid="excluded.from.module.devicedump"/>
+  </patternset>
+  
+  <path id="devicedump.module.sourcepath">
+    <dirset dir="${module.devicedump.basedir}">
+      <include name="gen"/>
+      <include name="src"/>
+    </dirset>
+  </path>
+  
+  
+  <target name="compile.module.devicedump" depends="compile.module.devicedump.production,compile.module.devicedump.tests" description="Compile module DeviceDump"/>
+  
+  <target name="compile.module.devicedump.production" depends="register.custom.compilers" description="Compile module DeviceDump; production classes">
+    <mkdir dir="${devicedump.output.dir}"/>
+    <javac2 destdir="${devicedump.output.dir}" debug="${compiler.debug}" nowarn="${compiler.generate.no.warnings}" memorymaximumsize="${compiler.max.memory}" fork="true" executable="${module.jdk.bin.devicedump}/javac">
+      <compilerarg line="${compiler.args.devicedump}"/>
+      <bootclasspath refid="devicedump.module.bootclasspath"/>
+      <classpath refid="devicedump.module.production.classpath"/>
+      <src refid="devicedump.module.sourcepath"/>
+      <patternset refid="excluded.from.compilation.devicedump"/>
+    </javac2>
+    
+    <copy todir="${devicedump.output.dir}">
+      <fileset dir="${module.devicedump.basedir}/gen">
+        <patternset refid="compiler.resources"/>
+        <type type="file"/>
+      </fileset>
+      <fileset dir="${module.devicedump.basedir}/src">
+        <patternset refid="compiler.resources"/>
+        <type type="file"/>
+      </fileset>
+    </copy>
+  </target>
+  
+  <target name="compile.module.devicedump.tests" depends="register.custom.compilers,compile.module.devicedump.production" description="compile module DeviceDump; test classes" unless="skip.tests"/>
+  
+  <target name="clean.module.devicedump" description="cleanup module">
+    <delete dir="${devicedump.output.dir}"/>
+    <delete dir="${devicedump.testoutput.dir}"/>
+  </target>
+</project>
